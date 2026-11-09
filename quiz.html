@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Тест: МКПП чи АКПП?</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .quiz-card {
+            background: var(--card-bg, #111);
+            border: 1px solid var(--border-color, #333);
+            padding: 30px;
+            max-width: 650px;
+            margin: 30px auto;
+            border-radius: 12px;
+            text-align: left;
+        }
+        .progress-bar {
+            font-size: 13px;
+            color: var(--sub-text, #888);
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        .question-title {
+            color: var(--text-color, #fff);
+            font-size: 18px;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+        .option-btn {
+            display: block;
+            width: 100%;
+            padding: 14px 18px;
+            margin: 10px 0;
+            background: var(--bg-color, #000);
+            color: var(--text-color, #fff);
+            border: 1px solid var(--border-color, #333);
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: left;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+        .option-btn:hover {
+            border-color: var(--text-color, #fff);
+            background: #222;
+        }
+        .result-box {
+            text-align: center;
+            padding: 20px;
+        }
+        .result-box h2 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: var(--text-color, #fff);
+        }
+        .result-box p {
+            color: var(--sub-text, #888);
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Онлайн-тест водія</h1>
+    <p class="sub">Дай відповідь на 10 запитань і дізнайся свою ідеальну коробку передач</p>
+
+    <div class="quiz-card" id="quizCard">
+        <div class="progress-bar" id="progress">Завантаження запитання...</div>
+        <div class="question-title" id="questionText">Будь ласка, зачекайте...</div>
+        <div id="optionsContainer"></div>
+    </div>
+
+    <p><a href="index.html" class="btn"> повернутися на головну</a></p>
+
+    <script>
+        const questions = [
+            {
+                q: "1. Де ви плануєте їздити більшу частину часу?",
+                options: [
+                    { text: "У великому місті з нескінченними заторами та світлофорами", score: 'at' },
+                    { text: "На заміських трасах, гірських серпантинах або треку", score: 'mt' }
+                ]
+            },
+            {
+                q: "2. Що для вас є пріоритетом під час керування авто?",
+                options: [
+                    { text: "Максимальний комфорт, щоб руки й ноги відпочивали", score: 'at' },
+                    { text: "Повний контроль над машиною та динамікою розгону", score: 'mt' }
+                ]
+            },
+            {
+                q: "3. Як ви ставитеся до потенційних витрат на обслуговування та ремонт?",
+                options: [
+                    { text: "Готовий переплачувати за сервіс заради зручності", score: 'at' },
+                    { text: "Віддаю перевагу дешевому та простому ремонту", score: 'mt' }
+                ]
+            },
+            {
+                q: "4. Чи важливо для вас відчувати прямий механічний зв'язок із двигуном?",
+                options: [
+                    { text: "Ні, головне — натиснув на газ і машина поїхала", score: 'at' },
+                    { text: "Так, це дарує справжнє задоволення від водіння", score: 'mt' }
+                ]
+            },
+            {
+                q: "5. Чи лякає вас перспектива постійно працювати педаллю зчеплення?",
+                options: [
+                    { text: "Так, це втомлює і відволікає від дороги", score: 'at' },
+                    { text: "Ні, це доведено до автоматизму і взагалі не заважає", score: 'mt' }
+                ]
+            },
+            {
+                q: "6. Хто ще окрім вас буде за кермом цього автомобіля?",
+                options: [
+                    { text: "Сім'я або новачки, яким важко витискати зчеплення", score: 'at' },
+                    { text: "Тільки я (або досвідчені водії)", score: 'mt' }
+                ]
+            },
+            {
+                q: "7. Який стиль водіння вам ближчий?",
+                options: [
+                    { text: "Спокійне, плавне та розмірене пересування", score: 'at' },
+                    { text: "Агресивне, спортивне з можливістю крутити мотор до максимуму", score: 'mt' }
+                ]
+            },
+            {
+                q: "8. Що ви робите, коли автомобіль застряг у снігу чи бруду?",
+                options: [
+                    { text: "Викликаю евакуатор або чекаю на допомогу, аби не перегріти коробку", score: 'at' },
+                    { text: "Використовую розгойдування («розкачку»), виїжджаю самостійно", score: 'mt' }
+                ]
+            },
+            {
+                q: "9. Наскільки критичним для вас є економія пального до грама?",
+                options: [
+                    { text: "Не суттєво, комфорт важливіший", score: 'at' },
+                    { text: "Важливо, хочу самостійно контролювати витрату обертами", score: 'mt' }
+                ]
+            },
+            {
+                q: "10. Яким ви бачите свій ідеальний автомобіль майбутнього?",
+                options: [
+                    { text: "Технологічним гаджетом на колесах, що їде майже сам", score: 'at' },
+                    { text: "Класичним драйверським авто із чесним механічним характером", score: 'mt' }
+                ]
+            }
+        ];
+
+        let currentQuestion = 0;
+        let mtScore = 0;
+        let atScore = 0;
+
+        function renderQuestion() {
+            if (currentQuestion >= questions.length) {
+                showResult();
+                return;
+            }
+
+            const q = questions[currentQuestion];
+            document.getElementById('progress').innerText = `Запитання ${currentQuestion + 1} з ${questions.length}`;
+            document.getElementById('questionText').innerText = q.q;
+
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+
+            q.options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.innerText = opt.text;
+                btn.onclick = function() {
+                    selectOption(opt.score);
+                };
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function selectOption(score) {
+            if (score === 'mt') mtScore++;
+            if (score === 'at') atScore++;
+
+            currentQuestion++;
+            renderQuestion();
+        }
+
+        function showResult() {
+            const quizCard = document.getElementById('quizCard');
+            const atPercent = Math.round((atScore / 10) * 100);
+            const mtPercent = Math.round((mtScore / 10) * 100);
+
+            let title = "";
+            let desc = "";
+
+            if (atScore > mtScore) {
+                title = "Твій вибір — Автоматична КПП (АКПП)! 🚗✨";
+                desc = `Твої відповіді свідчать про те, що на ${atPercent}% ти цінуєш комфорт, легкість та сучасні технології. Автомат зекономить твої нерви в міських заторах!`;
+            } else if (mtScore > atScore) {
+                title = "Твій вибір — Механічна КПП (МКПП)! 🏎️⚙️";
+                desc = `Ти справжній ентузіаст водіння! На ${mtPercent}% тобі важливий повний контроль над авто, динаміка розгону та відчуття кожної передачі.`;
+            } else {
+                title = "Ти універсальний водій! ⚖️";
+                desc = "Твої вподобання розділилися рівно 50/50. Тобі однаково добре підійде як комфортний автомат, так і драйверська механіка.";
+            }
+
+            quizCard.innerHTML = `
+                <div class="result-box">
+                    <h2>${title}</h2>
+                    <p>${desc}</p>
+                    <button onclick="location.reload()" class="btn" style="cursor:pointer;">Пройти тест знову 🔄</button>
+                </div>
+            `;
+        }
+
+        // Запуск одразу при завантаженні сторінки
+        window.onload = function() {
+            renderQuestion();
+        };
+    </script>
+</body>
+</html>

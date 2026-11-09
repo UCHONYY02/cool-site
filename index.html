@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>МКПП vs АКПП — Аналіз</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h1>МКПП vs АКПП</h1>
+    <p class="sub">Порівняльний аналіз автомобільних трансмісій</p>
+
+    <!-- Кнопка перемикання теми -->
+    <div>
+        <button class="theme-toggle-btn" onclick="toggleTheme()">🌓 Змінити тему (Темна / Світла)</button>
+    </div>
+
+    <div class="main-container">
+        <div class="text-box">
+            <h3>Історія та еволюція</h3>
+            <p>Перші автомобілі використовували примітивні механічні трансмісії. Водію доводилося докладати зусиль для перемикання без синхронізаторів, розраховуючи оберти двигуна.</p>
+            <p>Згодом з'явилися косозубі шестерні та синхронізатори. Головна перевага МКПП — прямий зв'язок двигуна з колесами та мінімальні втрати енергії.</p>
+        </div>
+
+        <div class="video-box">
+            <iframe src="https://www.youtube.com/embed/BI39E0pZOyk" allowfullscreen></iframe>
+        </div>
+
+        <div class="text-box">
+            <h3>Комфорт та ергономіка</h3>
+            <p>Автоматичні коробки спростили пересування у мегаполісах із заторами. Електроніка самостійно обирає передачу залежно від навантаження на двигун.</p>
+            <p>Сучасні автомати включають гідротрансформатори, роботизовані системи з двома зчепленнями та безступеневі варіатори.</p>
+        </div>
+    </div>
+
+    <div class="cards-container">
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&w=600&q=80" alt="Механіка">
+            <h3>Механічна КПП</h3>
+            <p>Повний контроль над автомобілем та динамікою розгону.</p>
+            <a href="manual.html" target="_blank" class="btn">Детальніше</a>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=600&q=80" alt="Автомат">
+            <h3>Автоматична КПП</h3>
+            <p>Максимальна зручність та комфорт під час поїздок.</p>
+            <a href="auto.html" target="_blank" class="btn">Детальніше</a>
+        </div>
+    </div>
+
+    <div class="table-section">
+        <h2>Порівняння характеристик</h2>
+        <table>
+            <tr>
+                <th>Критерій</th>
+                <th>Механічна КПП (МКПП)</th>
+                <th>Автоматична КПП (АКПП)</th>
+            </tr>
+            <tr>
+                <td>Контроль</td>
+                <td>Повний ручний</td>
+                <td>Автоматичний</td>
+            </tr>
+            <tr>
+                <td>Затори</td>
+                <td>Втомлює (зчеплення)</td>
+                <td>Комфортно (дві педалі)</td>
+            </tr>
+            <tr>
+                <td>Ремонт</td>
+                <td>Дешевший та простіший</td>
+                <td>Дорожчий</td>
+            </tr>
+        </table>
+    </div>
+
+    <p style="margin-top: 30px;">
+        <a href="quiz.html" class="btn" style="padding: 10px 25px; font-size: 15px;">Пройти тест: Що обрати саме тобі? 🚗</a>
+    </p>
+
+    <script>
+        function toggleTheme() {
+            document.body.classList.toggle('light-theme');
+        }
+    </script>
+</body>
+</html>
